@@ -17,7 +17,8 @@ ln -s ~/.local/godl/godl.sh ~/.local/bin/godl
 ```
 
 ### Script
-Run the installation script via `curl`.
+Run the installation script via `curl`. Note that `~/.local/bin` needs to be
+in `PATH`.
 
 ```
 curl -L https://raw.githubusercontent.com/JordanOcokoljic/godl/master/install.sh | bash
