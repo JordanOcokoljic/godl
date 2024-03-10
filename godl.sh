@@ -50,14 +50,22 @@ godl::_remove_go_install_()
   sudo rm -rf '/usr/local/go'
 }
 
+godl::_append_to_profile_if_missing_()
+{
+  local line="$1"
+
+  if grep -Fxq "$line" ~/.profile
+  then
+    :
+  else
+    echo "$line" >> ~/.profile
+  fi
+}
+
 godl::_update_profile_()
 {
-  if grep -Fxq 'export PATH=$PATH:/usr/local/go/bin' ~/.profile
-  then
-    return
-  else
-    echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.profile
-  fi
+  godl::_append_to_profile_if_missing_ 'export PATH=$PATH:/usr/local/go/bin'
+  godl::_append_to_profile_if_missing_ 'if command -v go &> /dev/null; then export PATH="$PATH:$(go env GOPATH)/bin"; fi'
 }
 
 godl::get()
